@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Colour Combinations</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: url("{{ url_for('static', filename='image/paintbg.jpeg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #55a7ac, #55a7ac);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 15px;
+        }
+        .header-title h3 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .search-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            font-size: 1rem;
+            width: 60%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            background-color: #55a7ac;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .recommendations {
+            text-align: center;
+        }
+        .recommendation {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px auto;
+            width: 80%;
+            max-width: 400px;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #55a7ac, #55a7ac);
+            color: white;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="{{ url_for('static', filename='image/logo.png') }}" alt="Logo" class="logo">
+            <div class="header-title">
+                <h3>CASA SPRUCE</h3>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="description">
+            <h2>Paint Colour Combinations</h2>
+            <p>Explore various color combinations to enhance your home decor.</p>
+        </div>
+        <div class="search-container">
+            <form method="POST" action="/paintcombos">
+                <input type="text" id="colorInput" name="color" placeholder="Enter a color...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="recommendations" id="recommendations">
+            {% if recommendations %}
+                {% for rec in recommendations %}
+                    <div class="recommendation">{{ rec }}</div>
+                {% endfor %}
+            {% else %}
+                <p>No recommendations found.</p>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        <a href="{{ url_for('paint') }}" style="color: white; text-decoration: none;">&larr; Back to Paint</a>
+    </footer>
+</body>
+</html>

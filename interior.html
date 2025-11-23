@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renovation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #55a7ac;
+            padding: 10px 20px;
+            color: white;
+        }
+        .top-bar img {
+            height: 50px;
+        }
+        .top-bar h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+        .search-bar button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background-color: #74cdd7;
+            color: white;
+            cursor: pointer;
+        }
+        header {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+        header img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            animation: slider 12s infinite;
+        }
+        @keyframes slider {
+            0% { opacity: 1; }
+            25% { opacity: 0; }
+            50% { opacity: 0; }
+            75% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+        @keyframes slider2 {
+            0% { opacity: 0; }
+            25% { opacity: 1; }
+            50% { opacity: 1; }
+            75% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        header img:nth-child(2) { animation: slider2 12s infinite; }
+        header img:nth-child(3) { animation: slider2 12s infinite; animation-delay: 3s; }
+        header img:nth-child(4) { animation: slider2 12s infinite; animation-delay: 6s; }
+
+        .container {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .item:nth-child(odd) {
+            flex-direction: row-reverse; /* Image on the right for odd items */
+        }
+        .item img {
+            width: 50%;
+            height: auto;
+            border-radius: 8px;
+            max-width: 400px; /* Ensure all images are the same size */
+        }
+        .item div {
+            width: 50%;
+            padding: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+        .explore-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #55a7ac;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .explore-button:hover {
+            background-color: #74cdd7;
+        }
+        footer {
+            text-align: center;
+            background-color: #55a7ac;
+            color: white;
+            padding: 40px 20px;
+        }
+        footer .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        footer .footer-section {
+            flex: 1;
+            margin: 10px;
+            min-width: 200px;
+        }
+        footer .footer-section h3 {
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        footer .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        footer .footer-section ul li {
+            margin: 5px 0;
+        }
+        footer .footer-section ul li a {
+            color: #bbb;
+            text-decoration: none;
+        }
+        footer .footer-section ul li a:hover {
+            color: white;
+        }
+        footer .subscribe {
+            display: flex;
+        }
+        footer .subscribe input[type="email"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+        footer .subscribe button {
+            padding: 10px;
+            background-color: #55a7ac;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            color: white;
+            cursor: pointer;
+        }
+        footer .social-media {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        footer .social-media a {
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='image/logo.png') }}" alt="CASA SPRUCE Logo">
+            <h1>CASA SPRUCE</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </div>
+
+    <header>
+        <img src="{{ url_for('static', filename='image/wallint13.avif') }}" alt="Wall Treatment">
+        <img src="{{ url_for('static', filename='image/tilefloor.avif') }}" alt="Flooring">
+        <img src="{{ url_for('static', filename='image/windsli.avif') }}" alt="Windows">
+        
+    </header>
+
+    <div class="container">
+        <div class="item">
+            <img src="{{ url_for('static', filename='image/wallint17.jpeg') }}" alt="Wall">
+            <div>
+                <h2>Wall Treatment</h2>
+                <p>Renovating wall treatments is an excellent way to refresh your home’s interior. Consider applying modern paint colors or patterns to create a vibrant atmosphere. Wallpaper can add character and depth, while wainscoting or decorative panels can introduce elegance. </p>
+                <a href="{{ url_for('wall') }}" class="explore-button">Explore More</a>
+            </div>
+        </div>
+
+        <div class="item">
+            <div>
+                <h2>Flooring</h2>
+                <p>When renovating flooring, you can choose from a variety of materials that fit your style and needs. Hardwood floors add warmth and timeless elegance, while laminate offers a budget-friendly alternative with a similar look. Tile is a durable choice, perfect for high-moisture areas like kitchens and bathrooms.</p>
+                <a href="{{ url_for('floor') }}" class="explore-button">Explore More</a>
+            </div>
+            <img src="{{ url_for('static', filename='image/tileceramic.jpeg') }}" alt="Floor">
+        </div>
+
+        <div class="item">
+            <img src="{{ url_for('static', filename='image/windbay.jpeg') }}" alt="Windows">
+            <div>
+                <h2>Window Treatment</h2>
+                <p>Updating window treatments is essential for enhancing both aesthetics and functionality in your home. Choose from a variety of options, including stylish curtains, elegant blinds, or modern shades, to suit your decor. These treatments not only provide privacy but also control natural light and improve energy efficiency.</p>
+                <a href="{{ url_for('window') }}" class="explore-button">Explore More</a>
+            </div>
+        </div>
+    </div>
+
+    
+    <footer>
+        <a href="{{ url_for('dashboard') }}" style="color: white; text-decoration: none;">&larr; Back to Dashboard</a>
+        <p><center>&copy; 2024 Casa Spruce. All rights reserved.</center></p>
+    </footer>
+</body>
+</html>

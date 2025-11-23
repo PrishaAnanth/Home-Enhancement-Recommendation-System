@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, #55a7ac, #55a7ac);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .image-container {
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #55a7ac, #55a7ac);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button {
+            background-color: #55a7ac;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #417b7d;
+        }
+
+        .select-box {
+            font-size: 16px;
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .selected-category {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kitchen Images</h1>
+    </header>
+
+    <form method="post">
+        <select name="category" class="select-box">
+            <option value="" disabled {% if not selected_category %}selected{% endif %}>Select a category</option>
+            <option value="traditional" {% if selected_category == 'traditional' %}selected{% endif %}>Traditional</option>
+            <option value="western" {% if selected_category == 'western' %}selected{% endif %}>Western</option>
+            <option value="classical" {% if selected_category == 'classical' %}selected{% endif %}>Classical</option>
+        </select>
+        <button type="submit" class="submit-button">Show Images</button>
+    </form>
+
+    {% if selected_category %}
+    <div class="selected-category">
+        Selected Category: {{ selected_category|capitalize }}
+    </div>
+    {% endif %}
+
+    <div class="gallery">
+        {% for image in images %}
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='image/' ~ image) }}" alt="Hall Image">
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer>
+        <a href="{{ url_for('renovation') }}" style="color: white; text-decoration: none;">&larr; Back to Renovation</a>
+    </footer>
+    
+    
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='validation.js') }}" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("{{ url_for('static', filename='image/bg_image2.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .wrapper {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 400px;
+      text-align: center;
+      opacity: 0.9;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar styles */
+    .wrapper::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .wrapper::-webkit-scrollbar-thumb {
+      background-color: #55a7ac;
+      border-radius: 4px;
+    }
+
+    .wrapper::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      text-align: center;
+    }
+
+    #error-message {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    div {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"] {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 14px;
+      width: 90%;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="tel"]:focus,
+    input[type="number"]:focus {
+      border-color: #55a7ac;
+      outline: none;
+    }
+
+    button {
+      background-color: #55a7ac;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #74cdd7;
+    }
+
+    a {
+      color: #55a7ac;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .logo {
+      max-width: 100px;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <script>
+    function validateForm() {
+      const password = document.getElementById('password-input').value;
+      const errorDiv = document.getElementById('error-message');
+      const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
+      const numberPattern = /\d/;
+
+      let errorMessage = '';
+      if (password.length < 8) {
+        errorMessage += 'Password must contain at least 8 characters.<br>';
+      }
+      if (!specialCharPattern.test(password)) {
+        errorMessage += 'Password must contain at least one special character.<br>';
+      }
+      if (!numberPattern.test(password)) {
+        errorMessage += 'Password must contain at least one number.<br>';
+      }
+
+      if (errorMessage) {
+        errorDiv.innerHTML = errorMessage;
+        return false;
+      }
+
+      return true; // If validation passes
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        if (validateForm()) {
+          this.submit(); // Change this line to submit the form normally
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Login</h1>
+    <img src="{{ url_for('static', filename='image/login.svg') }}" alt="Logo" class="logo">
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form id="form" action="{{ url_for('login') }}" method="POST"> <!-- Set your Flask route here -->
+      <p id="error-message"></p>
+
+      <div>
+        <label for="email-input">Email</label>
+        <input type="email" name="email" id="email-input" placeholder="Email" required>
+      </div>
+      <div>
+        <label for="password-input">Password</label>
+        <input type="password" name="password" id="password-input" placeholder="Password" required>
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+    <p>Don't have an account? <a href="{{ url_for('signup') }}">Signup</a></p> <!-- Set your Flask route here -->
+  </div>
+</body>
+</html>
